@@ -43,9 +43,9 @@ class Measurement(Base):
     id = Column(Integer, primary_key=True)
     type_id = Column(Integer, ForeignKey(
         "measurementtypes.id"), nullable=False)
-    type = relationship(MeasurementType)
+    # type = relationship(MeasurementType)
     sensor_id = Column(Integer, ForeignKey("sensors.id"), nullable=False)
-    sensor = relationship(Sensor)
+    # sensor = relationship(Sensor)
     value = Column(Float, nullable=True)
     timestamp = Column(DateTime)
 
@@ -53,8 +53,10 @@ class Measurement(Base):
     def serialize(self):
         return {
             "id": self.id,
-            "type": self.type.serialize,
-            "sensor": self.sensor.serialize,
+            "type_id": self.type_id,
+            # "type": self.type.serialize,
+            # "sensor": self.sensor.serialize,
+            "sensor_id": self.sensor_id,
             "value": self.value,
             "timestamp": self.timestamp
         }

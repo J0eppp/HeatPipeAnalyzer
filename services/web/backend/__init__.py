@@ -57,7 +57,7 @@ def post_sensors():
     session.refresh(sensor)
     res = jsonify(sensor.serialize)
     session.close()
-    return res
+    return res, 201
 
 
 @app.route("/measurementtypes")
