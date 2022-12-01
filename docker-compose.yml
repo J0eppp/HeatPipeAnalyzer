@@ -13,6 +13,16 @@ services:
       - ./.env.dev
     depends_on:
       - db
+  scheduler:
+    container_name: scheduler
+    build: ./services/scheduler
+    command: python main.py
+    volumes:
+      - ./services/scheduler/:/usr/src/app/
+    env_file:
+      - ./.env.dev
+    depends_on:
+      - db
   db:
     container_name: postgres_db
     image: postgres:13-alpine
