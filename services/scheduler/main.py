@@ -2,6 +2,8 @@ import schedule
 import time
 import signal
 
+import jobs
+
 class GracefulKiller:
   kill_now = False
   def __init__(self):
@@ -11,15 +13,9 @@ class GracefulKiller:
   def exit_gracefully(self,signum, frame):
     self.kill_now = True
 
-def job():
-    print("I'm working...")
-
-schedule.every(10).seconds.do(job)
+schedule.every(10).seconds.do(jobs.calculate_averages)
 
 if __name__ == "__main__":
-    job()
-
-
     killer = GracefulKiller()
 
     while True:
