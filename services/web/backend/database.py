@@ -77,7 +77,7 @@ def get_measurementtypes(session):
 
 
 def get_measurements(session):
-    return session.query(Measurement).order_by(Measurement.id.desc()).limit(500)[::-1]
+    return session.query(Measurement).order_by(Measurement.id.desc())[::-1]
 
 
 def insert(session, object, commit=True):
