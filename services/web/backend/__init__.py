@@ -7,6 +7,8 @@ from datetime import datetime
 
 from . import database
 
+from flask_cors import CORS
+
 
 def monthdelta(date, delta):
     m, y = (date.month+delta) % 12, date.year + ((date.month)+delta-1) // 12
@@ -21,6 +23,7 @@ def monthdelta(date, delta):
 
 load_dotenv()
 app = Flask(__name__)
+CORS(app)
 engine = database.create_connection(getenv("DATABASE_URL"))
 
 Session = sessionmaker(bind=engine)
@@ -35,6 +38,9 @@ if len(sensors) == 0:
     # Create all sensors
     sensor1 = database.Sensor(name="Sensor 1")
     database.insert(session, sensor1, commit=False)
+    sensor2 = database.Sensor(name="Sensor 2")
+    database.insert(session, sensor2, commit=False)
+
 
 if len(measurementtypes) == 0:
     # Create all measurement types
@@ -55,6 +61,11 @@ if len(measurements) == 0:
         temp = random.randint(15, 80) + (random.randint(0, 9) / 10)
         measurement = database.Measurement(
             type_id=1, sensor_id=1, value=temp, timestamp=datetime.now())
+        database.insert(session, measurement, commit=False)
+    for i in range(1000):
+        lux = random.randint(15, 80) + (random.randint(0, 9) / 10)
+        measurement = database.Measurement(
+            type_id=2, sensor_id=2, value=lux, timestamp=datetime.now())
         database.insert(session, measurement, commit=False)
 
 session.commit()
