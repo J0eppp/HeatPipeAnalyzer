@@ -6,7 +6,7 @@ import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { SelectChangeEvent } from "@mui/material";
 
 import { MeasurementType } from "../util/types";
-import React from "react";
+import React, { useEffect } from "react";
 
 
 const ITEM_HEIGHT = 48;
@@ -47,6 +47,10 @@ const GraphSelector = ({ measurementTypes, selectedMT, handleChange, startDate, 
         setEndDate(date);
     }
 
+    useEffect(() => {
+        getData();
+    }, [selectedMT, endDate, startDate]);
+
     return <FormControl style={{ display: "flex", flexDirection: "row" }}>
             <InputLabel id="demo-multiple-checkbox-label">Measurement Type</InputLabel>
             <Select
@@ -85,7 +89,7 @@ const GraphSelector = ({ measurementTypes, selectedMT, handleChange, startDate, 
                 />
         </LocalizationProvider>
 
-        <Button variant="contained" onClick={getData}>Get Data</Button>
+        {/* <Button variant="contained" onClick={getData}>Get Data</Button> */}
         
         </FormControl>
 };

@@ -43,26 +43,21 @@ const Graph = () => {
     const [startDate, setStartDate] = useState<Date>(dayjs(prev).toDate());
     const [endDate, setEndDate] = useState<Date>(dayjs(now).toDate());
 
-    const [data, setData] = useState<Measurement[]>([]);
-
-    useEffect(() => {
-        console.log(data);
-    }, [data]);
+    const [data, setData] = useState<Measurement[][]>([]);
 
     const handleChange = (event: any) => {
         const {
         target: { value },
         } = event;
-        // console.log(value);
         let ids = [];
         for (let v in value) {
             for (let mt in measurementTypes) {
-                // console.log("v: " + v);
                 if (measurementTypes[mt].type === value[v]) {
                     ids.push(measurementTypes[mt].id);
                 }
             }
         }
+        console.log(ids);
         setSelectedMTIDs(ids);
         setSelectedMT(
             // On autofill we get a stringified value.
@@ -73,10 +68,13 @@ const Graph = () => {
     const getData = () => {
         setData([]);
         for (let mt of selectedMTIDs) {
-            console.log(`http://localhost:5000/measurements?type=${mt}&start_date=${formatDate(new Date(startDate))}&end_date=${formatDate(new Date(endDate))}`);
+            console.error(`http://localhost:5000/measurements?type=${mt}&start_date=${formatDate(new Date(startDate))}&end_date=${formatDate(new Date(endDate))}`);
             fetch(`http://localhost:5000/measurements?type=${mt}&start_date=${formatDate(new Date(startDate))}&end_date=${formatDate(new Date(endDate))}`)
                 .then(response => response.json())
-                .then(d => setData([...data, d]));
+                .then(d => {
+                    setData([...data, d]);
+                    console.log(data);
+                });
         }
     }
     
