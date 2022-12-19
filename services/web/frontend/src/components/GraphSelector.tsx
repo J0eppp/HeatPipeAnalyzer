@@ -47,9 +47,9 @@ const GraphSelector = ({ measurementTypes, selectedMT, handleChange, startDate, 
         setEndDate(date);
     }
 
-    useEffect(() => {
-        getData();
-    }, [selectedMT, endDate, startDate]);
+    // useEffect(() => {
+    //     getData();
+    // }, [selectedMT, endDate, startDate]);
 
     return <FormControl style={{ display: "flex", flexDirection: "row" }}>
             <InputLabel id="demo-multiple-checkbox-label">Measurement Type</InputLabel>
@@ -89,7 +89,7 @@ const GraphSelector = ({ measurementTypes, selectedMT, handleChange, startDate, 
                 />
         </LocalizationProvider>
 
-        {/* <Button variant="contained" onClick={getData}>Get Data</Button> */}
+        <Button variant="contained" onClick={getData}>Get Data</Button>
         
         </FormControl>
 };

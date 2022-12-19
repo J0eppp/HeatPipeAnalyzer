@@ -89,7 +89,7 @@ const Graph = () => {
 
         <GraphSelector measurementTypes={measurementTypes} selectedMT={selectedMT} handleChange={handleChange} startDate={startDate} setStartDate={setStartDate} endDate={endDate} setEndDate={setEndDate} getData={getData} />
 
-        <GraphComponent data={data} measurementTypes={measurementTypes} />
+        <GraphComponent data={data} measurementTypes={measurementTypes} startDate={startDate} endDate={endDate} />
 
     </>
 };

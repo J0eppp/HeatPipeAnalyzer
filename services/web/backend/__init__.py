@@ -3,7 +3,7 @@ from sqlalchemy.orm import sessionmaker
 
 from dotenv import load_dotenv
 from os import getenv
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from . import database
 
@@ -59,13 +59,15 @@ if len(measurements) == 0:
     # Create some sample measurements
     for i in range(1000):
         temp = random.randint(15, 80) + (random.randint(0, 9) / 10)
+        timestamp = datetime.now() + timedelta(hours=-i)
         measurement = database.Measurement(
-            type_id=1, sensor_id=1, value=temp, timestamp=datetime.now())
+            type_id=1, sensor_id=1, value=temp, timestamp=timestamp)
         database.insert(session, measurement, commit=False)
     for i in range(1000):
         lux = random.randint(15, 80) + (random.randint(0, 9) / 10)
+        timestamp = datetime.now() + timedelta(hours=-i)
         measurement = database.Measurement(
-            type_id=2, sensor_id=2, value=lux, timestamp=datetime.now())
+            type_id=2, sensor_id=2, value=lux, timestamp=timestamp)
         database.insert(session, measurement, commit=False)
 
 session.commit()
